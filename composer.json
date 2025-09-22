@@ -1,29 +1,26 @@
 {
-    "name": "trupen1010/laravel-voice-assistant",
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "laravel/laravel",
     "type": "project",
-    "description": "Laravel 12 Voice Assistant Application with MCP Integration",
-    "keywords": ["laravel", "framework", "voice-assistant", "mcp", "ai", "google", "youtube", "amazon"],
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.2",
         "laravel/framework": "^12.0",
-        "laravel/mcp": "^1.0",
-        "laravel/sanctum": "^4.0",
-        "laravel/passport": "^12.0",
-        "laravel/tinker": "^2.10",
-        "guzzlehttp/guzzle": "^7.9",
-        "google/apiclient": "^2.16",
-        "predis/predis": "^2.2",
-        "pusher/pusher-php-server": "^7.2"
+        "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "laravel/pint": "^1.18",
-        "laravel/sail": "^1.31",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.24",
+        "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.4",
-        "phpunit/phpunit": "^11.4",
-        "spatie/laravel-ignition": "^2.8"
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^11.5.3"
     },
     "autoload": {
         "psr-4": {
@@ -52,6 +49,14 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
         ]
     },
     "extra": {
